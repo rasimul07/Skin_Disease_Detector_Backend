@@ -9,17 +9,17 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
 dotenv_1.default.config();
 const PORT = process.env.PORT;
-const DATABASE_URL = process.env.DATABASE_URL;
-const user_1 = __importDefault(require("./routes/user"));
+const user_1 = __importDefault(require("#/routes/user"));
+const variable_1 = require("#/utils/variable");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use('/user', user_1.default);
-if (DATABASE_URL) {
-    exports.conn = mongoose_1.default.connect(DATABASE_URL);
-    console.log('connect server using mongoose successfully');
+app.use("/user", user_1.default);
+if (variable_1.DATABASE_URL) {
+    exports.conn = mongoose_1.default.connect(variable_1.DATABASE_URL);
+    console.log("connect server using mongoose successfully");
 }
 else {
-    console.log('server url undefined');
+    console.log("server url undefined");
 }
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}`);
