@@ -1,25 +1,11 @@
-import { CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, CLOUDINARY_CLOUD_NAME } from '#/utils/variable';
-import { v2 as cloudinary } from 'cloudinary';
-// import fs from 'fs';
-
+import { CLOUD_NAME, CLOUD_KEY, CLOUD_SECRET } from "#/utils/variables";
+import { v2 as cloudinary } from "cloudinary";
 
 cloudinary.config({
-    cloud_name: CLOUDINARY_CLOUD_NAME,
-    api_key: CLOUDINARY_API_KEY,
-    api_secret: CLOUDINARY_API_SECRET
+  cloud_name: CLOUD_NAME,
+  api_key: CLOUD_KEY,
+  api_secret: CLOUD_SECRET,
+  secure: true,
 });
 
 export default cloudinary;
-
-// export const uploadOnCloudinary = async (localFilePath) =>{
-//     try{
-//        if(!localFilePath) return null;
-//        const response = await cloudinary.uploader.upload(localFilePath,{
-//         resource_type:'image'
-//        })
-//        return response;
-//     }catch(error){
-//         fs.unlinkSync(localFilePath) //remove the locally saved temporary file as the upload operation get failed
-//         return null;
-//     }
-// }

@@ -1,12 +1,19 @@
 import express from "express";
-import userRouter from "#/routes/user";
-import imageRouter from "#/routes/image"
-import  {PORT} from "#/utils/variable";
+import dotenv from "dotenv";
+dotenv.config();
+import "./db";
 const app = express();
-app.use(express.json());
-app.use("/user", userRouter);
-app.use("/image", imageRouter);
+const PORT = process.env.PORT || 5789;
 
+import authRouter from "#/routes/auth";
+import photoRouter from "#/routes/image";
+import userRouter from '#/routes/user';
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static('src/public'))
+app.use("/auth", authRouter);
+app.use("/photo", photoRouter);
+app.use("/user", userRouter);
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log("Server is listening on port " + PORT);
 });
