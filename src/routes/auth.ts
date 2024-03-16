@@ -15,11 +15,9 @@ import {
   sendVerificationToken,
   signIn,
   updatePassword,
-  updateProfile,
 } from "#/controllars/auth";
 import { verifyEmail } from "#/controllars/auth";
 import { isValidPasswordResetToken, mustAuth } from "#/middleware/auth";
-import { RequestWithFiles, fileParser } from "#/middleware/fileParser";
 const router = Router();
 
 router.post("/create", validate(CreateUserSchema), create); //create new user and send to token to mail and save encrypt token to Database temporarily
