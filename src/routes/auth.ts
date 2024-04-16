@@ -11,6 +11,7 @@ import {
   generateForgetPasswordLink,
   grantValid,
   logOut,
+  sendProfile,
   // sendProfile,
   sendVerificationToken,
   signIn,
@@ -38,5 +39,5 @@ router.post(
 ); //used in script.js
 router.post("/sign-in", validate(SignInValidationSchema), signIn);
 router.post("/log-out", mustAuth, logOut);
-
+router.get("/is-auth", mustAuth, sendProfile);
 export default router;

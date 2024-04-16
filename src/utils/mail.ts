@@ -1,6 +1,6 @@
 import { generateTemplate } from "#/mail/template";
 import path from "path";
-import { APP_USER, APP_PASS, VERIFICATION_EMAIL, SIGN_IN_URL } from "./variables";
+import { APP_USER, APP_PASS, SIGN_IN_URL } from "./variables";
 import nodemailer from 'nodemailer'
 import EmailVerificationToken from "#/models/emailVerificationToken";
 const generateMailTransporter = () =>{
@@ -37,9 +37,9 @@ const transport = generateMailTransporter();
 transport.sendMail({
   to: email,
   // from: VERIFICATION_EMAIL,
-  from:{
-    name: 'AI SKINIFY',
-    address:APP_USER
+  from: {
+    name: "AI SKINIFY",
+    address: APP_USER,
   },
   subject: "Welcome message",
   // html: `<h1>Your verification token is ${token}</h1>`
@@ -54,12 +54,12 @@ transport.sendMail({
   attachments: [
     {
       filename: "logo.png",
-      path: path.join(__dirname, "../mail/logo.png"), //used absolute path of the computer
+      path: path.join(__dirname, "../mail/images/logo.png"), //used absolute path of the computer
       cid: "logo",
     },
     {
       filename: "welcome.png",
-      path: path.join(__dirname, "../mail/welcome.png"), //used absolute path of the computer
+      path: path.join(__dirname, "../mail/images/welcome.png"), //used absolute path of the computer
       cid: "welcome",
     },
   ],
@@ -96,12 +96,12 @@ transport.sendMail({
   attachments: [
     {
       filename: "logo.png",
-      path: path.join(__dirname, "../mail/logo.png"), //used absolute path of the computer
+      path: path.join(__dirname, "../mail/images/logo.png"), //used absolute path of the computer
       cid: "logo",
     },
     {
       filename: "forget_password.png",
-      path: path.join(__dirname, "../mail/forget_password.png"), //used absolute path of the computer
+      path: path.join(__dirname, "../mail/images/forget_password.png"), //used absolute path of the computer
       cid: "forget_password",
     },
   ],
@@ -131,12 +131,12 @@ export const sendPassResetSuccessEmail = async (name:string,email:string) => {
     attachments: [
       {
         filename: "logo.png",
-        path: path.join(__dirname, "../mail/logo.png"), //used absolute path of the computer
+        path: path.join(__dirname, "../mail/images/logo.png"), //used absolute path of the computer
         cid: "logo",
       },
       {
         filename: "forget_password.png",
-        path: path.join(__dirname, "../mail/forget_password.png"), //used absolute path of the computer
+        path: path.join(__dirname, "../mail/images/forget_password.png"), //used absolute path of the computer
         cid: "forget_password",
       },
     ],

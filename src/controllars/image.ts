@@ -20,12 +20,7 @@ export const imageUpload: RequestHandler = async (
   let url, publicId;
   const photo = await Photo.findOne({ owner: req.user.id });
   if (imageFile) {
-    const photoRes = await cloudinary.uploader.upload(imageFile.filepath, {
-      width: 300,
-      height: 300,
-      // crop: "thumb",
-      // gravity: "face",
-    });
+    const photoRes = await cloudinary.uploader.upload(imageFile.filepath);
 
     if (!photo) {
       const file = [
@@ -106,4 +101,12 @@ export const updateImage: RequestHandler = async (
   } else {
     res.status(200).json({ error: "Photo Update unsuccessfull!!" });
   }
+};
+
+export const getImages: RequestHandler = async (req, res) => {
+  const photo = await Photo.findOne({ owner: req.user.id });
+  if(!photo){
+    return res.status(200).json({ photos: [] });
+  }
+  res.status(200).json({ photos: photo.file });
 };

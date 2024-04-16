@@ -13,8 +13,7 @@ import PasswordResetToken from "#/models/passwordResetToken";
 import crypto from "crypto";
 import { JWT_SECRET, PASSWORD_RESET_LINK } from "#/utils/variables";
 import jwt from "jsonwebtoken";
-import { RequestWithFiles } from "#/middleware/fileParser";
-import cloudinary from "#/cloud/clouldinary";
+
 
 export const create = async (req: CreateUser, res: Response) => {
   const { email, password, name } = req.body;
@@ -157,6 +156,9 @@ export const signIn: RequestHandler = async (req, res) => {
   });
 };
 
+export const sendProfile: RequestHandler = async (req, res) => {
+  res.status(200).json({ profile: req.user });
+};
 
 export const logOut: RequestHandler = async (req, res) => {
   const { fromAll } = req.query;

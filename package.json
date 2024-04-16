@@ -5,7 +5,10 @@
   "main": "app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsnd --respawn -r tsconfig-paths/register --pretty --transpile-only ./src/app.ts"
+    "dev": "tsnd --respawn -r tsconfig-paths/register --pretty --transpile-only ./src/app.ts",
+    "build": "tsc && tsc-alias && npm run copy-images",
+    "copy-images": "cp -R src/mail/images dist/mail",
+    "start": "node ./dist/app.js"
   },
   "keywords": [],
   "author": "",
@@ -38,6 +41,7 @@
     "dotenv": "^16.3.2",
     "nodemon": "^3.0.3",
     "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.8.8",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.3"
   }
