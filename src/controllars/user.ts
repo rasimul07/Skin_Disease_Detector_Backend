@@ -32,3 +32,5 @@ export const updateProfile: RequestHandler = async (
   await user.save();
   res.json({ profile: formatProfile(user) });
 };
+
+

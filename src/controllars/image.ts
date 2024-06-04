@@ -4,6 +4,10 @@ import { RequestHandler } from "express";
 import formidable from "formidable";
 import User from "#/models/user";
 import Photo from "#/models/photo";
+// import { PythonShell } from "python-shell";
+import tf from '@tensorflow/tfjs-node'
+import {spawn} from 'child_process'
+import { prediction } from "#/prediction/prediction";
 interface CreateImageRequest extends RequestWithFiles {
   body: {
     index: number;
@@ -109,4 +113,21 @@ export const getImages: RequestHandler = async (req, res) => {
     return res.status(200).json({ photos: [] });
   }
   res.status(200).json({ photos: photo.file });
+};
+
+
+export const getPrediction: RequestHandler = async (req, res) => {
+  const {index} = req.body;
+  try {
+    const photos = await Photo.findOne({ owner: req.user.id });
+    if(photos){
+      const photourl = photos.file[index].url;
+      const predicted_class = await prediction(photourl);
+      res.status(200).json({predicted_class})
+    }else{
+      res.json({ error: "photo not found" });
+    }
+  } catch (error) {
+    res.json({ error });
+  }
 };
