@@ -4,9 +4,6 @@ import { RequestHandler } from "express";
 import formidable from "formidable";
 import User from "#/models/user";
 import Photo from "#/models/photo";
-// import { PythonShell } from "python-shell";
-import tf from '@tensorflow/tfjs-node'
-import {spawn} from 'child_process'
 import { prediction } from "#/prediction/prediction";
 interface CreateImageRequest extends RequestWithFiles {
   body: {
@@ -38,7 +35,7 @@ export const imageUpload: RequestHandler = async (
         file,
       });
     } else {
-      photo.file.push({
+      photo.file.unshift({
         url: photoRes.secure_url,
         publicId: photoRes.public_id,
       });
