@@ -28,6 +28,7 @@ export const imageUpload: RequestHandler = async (
         {
           url: photoRes.secure_url,
           publicId: photoRes.public_id,
+          prediction:null
         },
       ];
       await Photo.create({
@@ -38,6 +39,7 @@ export const imageUpload: RequestHandler = async (
       photo.file.unshift({
         url: photoRes.secure_url,
         publicId: photoRes.public_id,
+        prediction: null,
       });
       await photo.save();
     }
@@ -79,8 +81,8 @@ export const updateImage: RequestHandler = async (
   if (!photo) return res.status(400).json({ error: "No photos available!!" });
   if (photo && imageFile) {
     const photoRes = await cloudinary.uploader.upload(imageFile.filepath, {
-      width: 300,
-      height: 300,
+      width: 225,
+      height: 225,
       // crop: "thumb",
       // gravity: "face",
     });
@@ -93,6 +95,7 @@ export const updateImage: RequestHandler = async (
     photo.file.splice(ind, 1, {
       url: photoRes.secure_url,
       publicId: photoRes.public_id,
+      prediction: null,
     });
     await photo.save();
     if (publicId) {
@@ -117,14 +120,40 @@ export const getPrediction: RequestHandler = async (req, res) => {
   const {index} = req.body;
   try {
     const photos = await Photo.findOne({ owner: req.user.id });
+    console.log(photos)
     if(photos){
       const photourl = photos.file[index].url;
+      const publicId = photos.file[index].publicId;
       const predicted_class = await prediction(photourl);
+       photos.file.splice(index, 1, {
+         url: photourl,
+         publicId,
+         prediction: predicted_class,
+       });
+      await photos.save();
       res.status(200).json({predicted_class})
     }else{
+      res.json({ error: "photos not found" });
+    }
+  } catch (error) {
+    res.json({ error });
+  }
+};
+export const getPredictionOfAllImages: RequestHandler = async (req, res) => {
+  const { index } = req.body;
+  try {
+    const photos = await Photo.findOne({ owner: req.user.id });
+    if (photos) {
+      const photourl = photos.file[index].url;
+      const predicted_class = await prediction(photourl);
+      res.status(200).json({ predicted_class });
+    } else {
       res.json({ error: "photo not found" });
     }
   } catch (error) {
     res.json({ error });
   }
 };
+
+
+

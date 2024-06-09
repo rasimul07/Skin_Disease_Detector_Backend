@@ -5,6 +5,7 @@ export interface PhotoDocument {
   file: [{
     url: string;
     publicId: string;
+    prediction:string|null;
   }];
 }
 
@@ -13,13 +14,16 @@ const PhotoSchema = new Schema<PhotoDocument>(
     owner: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref:'User'
+      ref: "User",
     },
-    file: [{
-      type: Object,
-      url: String,
-      publicId: String,
-    }]
+    file: [
+      {
+        type: Object,
+        url: String,
+        publicId: String,
+        prediction:String,
+      },
+    ],
   },
   { timestamps: true }
 );
