@@ -8,7 +8,7 @@
     "dev": "tsnd --respawn -r tsconfig-paths/register --pretty --transpile-only ./src/index.ts",
     "build": "tsc && tsc-alias && npm run copy-images",
     "copy-images": "cp -R src/mail/images dist/mail",
-    "start": "npm run build && npm run copy-images && nodemon ./dist/index.js"
+    "start": "npm run build && npm run copy-images && node ./dist/index.js"
   },
   "keywords": [],
   "author": "",
