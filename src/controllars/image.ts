@@ -120,7 +120,7 @@ export const getPrediction: RequestHandler = async (req, res) => {
   const {index} = req.body;
   try {
     const photos = await Photo.findOne({ owner: req.user.id });
-    console.log(photos)
+    // console.log(photos)
     if(photos){
       const photourl = photos.file[index].url;
       const publicId = photos.file[index].publicId;
