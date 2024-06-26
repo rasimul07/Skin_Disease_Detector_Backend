@@ -5,7 +5,7 @@ import { CLASS_NAMES_137 } from './classes';
 //load model function
 async function loadModel() {
     const model = await tf.loadLayersModel(
-      "http://127.0.0.1:5789/tfjs_model_MobileNet/model.json"
+      "http://127.0.0.1:5789/10_class_MobileNet_tfjs_model/model.json"
     );
     return model;
 }
